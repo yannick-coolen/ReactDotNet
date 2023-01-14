@@ -3,10 +3,15 @@ import { Activity } from "../../../app/models/activity";
 
 interface Props {
   activities: Activity[];
-  selectActivity: (id: string) => void
+  selectActivity: (id: string) => void;
+  deleteActivity: (id: string) => void;
 }
 
-export default function ActivityList({ activities, selectActivity }: Props) {
+export default function ActivityList({
+  activities,
+  selectActivity,
+  deleteActivity,
+}: Props) {
   return (
     <Segment>
       <Item.Group divided>
@@ -14,15 +19,32 @@ export default function ActivityList({ activities, selectActivity }: Props) {
           {activities.map((activity) => (
             <Item key={activity.id}>
               <Item.Content>
-                <Item.Header as={'a'}>{activity.title}</Item.Header>
+                <Item.Header as={"a"}>{activity.title}</Item.Header>
                 <Item.Meta>{activity.date}</Item.Meta>
                 <Item.Description>
                   <div>{activity.description}</div>
-                  <div>{activity.city}, {activity.venue}</div>
+                  <div>
+                    {activity.city}, {activity.venue}
+                  </div>
                 </Item.Description>
                 <Item.Extra>
-                  <Button onClick={() => selectActivity(activity.id)} floated={'right'} content={'View'} color={'blue'} />
-                  <Label basic content={activity.category} style={{marginTop: '6px'}}/>
+                  <Button
+                    onClick={() => selectActivity(activity.id)}
+                    floated={"right"}
+                    content={"View"}
+                    color={"blue"}
+                  />
+                  <Button
+                    onClick={() => deleteActivity(activity.id)}
+                    floated={"right"}
+                    content={"Delete"}
+                    color={"red"}
+                  />
+                  <Label
+                    basic
+                    content={activity.category}
+                    style={{ marginTop: "6px" }}
+                  />
                 </Item.Extra>
               </Item.Content>
             </Item>
