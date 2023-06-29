@@ -3,13 +3,12 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 using Application.Activities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
     public class ActivitiesController : BaseApiController
     {
-        private readonly IMediator _mediator;
-
         [HttpGet] //api/activities 
         public async Task<IActionResult> GetActivities()
             => HandleResult(await Mediator.Send(new List.Query()));
