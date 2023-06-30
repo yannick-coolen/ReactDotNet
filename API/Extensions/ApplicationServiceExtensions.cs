@@ -1,6 +1,6 @@
 using Application.Activities;
 using Application.Core;
-using Application.interfaces;
+using Application.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Security;
