@@ -28,7 +28,6 @@ export default observer(function ActivityDetailedChat() {
               </Comment.Actions>
             </Comment.Content>
           </Comment>
-
           <Comment>
             <Comment.Avatar src="/assets/user.png" />
             <Comment.Content>
@@ -42,7 +41,6 @@ export default observer(function ActivityDetailedChat() {
               </Comment.Actions>
             </Comment.Content>
           </Comment>
-
           <Form reply>
             <Form.TextArea />
             <Button

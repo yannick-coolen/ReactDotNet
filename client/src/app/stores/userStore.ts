@@ -41,6 +41,7 @@ export default class UserStore {
 
   logout = () => {
     store.commonStore.setToken(null);
+    localStorage.removeItem('jwt');
     this.user = null;
     router.navigate("/");
   };

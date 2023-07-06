@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Header, Segment } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
-import { Activity } from "../../../app/models/activity";
+import { ActivityFormValues } from "../../../app/models/activity";
 import { useStore } from "../../../app/stores/store";
 import { v4 as uuid } from "uuid";
 import { Formik, Form } from "formik";
@@ -19,7 +19,6 @@ export default observer(function ActivityForm() {
   const {
     createActivity,
     updateActivity,
-    loading,
     loadActivity,
     loadingInitial,
   } = activityStore;
@@ -27,15 +26,9 @@ export default observer(function ActivityForm() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [activity, setActivity] = useState<Activity>({
-    id: "",
-    title: "",
-    category: "",
-    description: "",
-    date: null,
-    city: "",
-    venue: "",
-  });
+  const [activity, setActivity] = useState<ActivityFormValues>(
+    new ActivityFormValues()
+  );
 
   const validationSchema = Yup.object({
     title: Yup.string().required("The activity title is required"),
@@ -47,10 +40,13 @@ export default observer(function ActivityForm() {
   });
 
   useEffect(() => {
-    if (id) loadActivity(id).then((activity) => setActivity(activity!));
+    if (id)
+      loadActivity(id).then((activity) =>
+        setActivity(new ActivityFormValues(activity))
+      );
   }, [id, loadActivity]);
 
-  const handleFormSubmit = (activity: Activity) => {
+  const handleFormSubmit = (activity: ActivityFormValues) => {
     if (!activity.id) {
       activity.id = uuid();
       createActivity(activity).then(() =>
@@ -68,7 +64,7 @@ export default observer(function ActivityForm() {
 
   return (
     <Segment clearing>
-      <Header content={"Activities Details"} subheader={"teal"} />
+      <Header content={"Activities Details"} sub color={"teal"} />
       <Formik
         validationSchema={validationSchema}
         enableReinitialize
@@ -103,8 +99,8 @@ export default observer(function ActivityForm() {
             <MyTextInput placeholder={"City"} name={"city"} />
             <MyTextInput placeholder={"Venue"} name={"venue"} />
             <Button
-            disabled={isSubmitting || !dirty || !isValid}
-              loading={loading}
+              disabled={isSubmitting || !dirty || !isValid}
+              loading={isSubmitting}
               floated={"right"}
               positive
               type={"submit"}
