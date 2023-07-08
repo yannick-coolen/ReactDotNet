@@ -18,9 +18,7 @@ export default observer(function RegisterForm() {
         error: null,
       }}
       onSubmit={(values, { setErrors }) =>
-        userStore
-          .register(values)
-          .catch((error) => setErrors({ error }))
+        userStore.register(values).catch((error) => setErrors({ error }))
       }
       validationSchema={Yup.object({
         displayName: Yup.string().required(),
@@ -30,7 +28,11 @@ export default observer(function RegisterForm() {
       })}
     >
       {({ handleSubmit, isSubmitting, errors, isValid, dirty }) => (
-        <Form className="ui form error" onSubmit={handleSubmit} autoComplete="off">
+        <Form
+          className="ui form error"
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
           <Header
             as={"h2"}
             content="Sign up to Reactivities"
@@ -43,9 +45,7 @@ export default observer(function RegisterForm() {
           <MyTextInput placeholder="Password" name="password" type="password" />
           <ErrorMessage
             name="error"
-            render={() => (
-              <ValidationError errors={errors.error}/>
-            )}
+            render={() => <ValidationError errors={errors.error} />}
           />
           <Button
             disabled={!isValid || !dirty || isSubmitting}
