@@ -1,3 +1,5 @@
+using Application.Comments;
+
 namespace Application.Activities
 {
     public class ActivityDto
