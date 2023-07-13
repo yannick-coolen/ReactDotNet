@@ -43,7 +43,6 @@ namespace Application.Followers
                         Observer = observer,
                         Target = target,
                     };
-
                     _context.UserFollowings.Add(following);
                 }
                 else

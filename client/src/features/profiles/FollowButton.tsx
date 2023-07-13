@@ -14,10 +14,7 @@ export default observer(function FollowButton({ profile }: Props) {
 
   if (userStore.user?.username === profile.username) return null;
 
-  const handleFollow = (
-    e: SyntheticEvent,
-    username: string
-  ) => {
+  const handleFollow = (e: SyntheticEvent, username: string) => {
     e.preventDefault();
     profile.following
       ? updateFollowing(username, false)
@@ -30,10 +27,12 @@ export default observer(function FollowButton({ profile }: Props) {
         <Button
           fluid
           color="teal"
-          content={profile.following ? "Following" : "Not following"}
+          content={profile.following 
+            ? "Following" 
+            : "Not following"}
         />
       </Reveal.Content>
-      <Reveal.Content hidden style={{ width: "100%" }}>
+      <Reveal.Content hidden>
         <Button
           fluid
           basic
